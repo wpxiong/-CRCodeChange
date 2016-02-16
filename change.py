@@ -1,8 +1,15 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import os
+import sys
 import array
 
+DEBUG_MODE = True
+
+def printDebug(strval):
+  if DEBUG_MODE:
+     print(strval)
+  
 def FileReplace(filename):
   print(filename)
   file=open(filename,"rb")
@@ -13,8 +20,9 @@ def FileReplace(filename):
   newfile=open(filename,'wb')
   for line in lines:
     strline=line.replace(b'\r\n',b'\n')
+    printDebug(strline)
     newfile.write(strline)
-    newfile.close()
+  newfile.close()
 
 def DirReplace(dirname):
   if os.path.isdir(dirname)==False:
@@ -28,8 +36,6 @@ def DirReplace(dirname):
          FileReplace(filename)
          print("File has changed!")
 
-
-
 if __name__ == "__main__":
   argvs = sys.argv  # コマンドライン引数を格納したリストの取得
   argc = len(argvs) # 引数の個数
@@ -39,4 +45,4 @@ if __name__ == "__main__":
      printDebug("引数数が不正")
      sys.exit()
   folderPath= argvs[1]
-  DirReplace(folderPath= )
+  DirReplace(folderPath)
